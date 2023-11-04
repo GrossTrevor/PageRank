@@ -1,8 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "Vertex.h"
-#include "Vertex.hpp"
+#include <map>
 #include "AdjacencyList.h"
 #include "AdjacencyList.hpp"
 
@@ -11,6 +10,7 @@ using std::cout;
 using std::endl;
 using std::string;
 using std::vector;
+using std::map;
 
 int main() {
 	int lines = 0, powers = 0;

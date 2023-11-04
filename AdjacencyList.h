@@ -1,17 +1,14 @@
 #pragma once
-#include "Vertex.h"
 
 class AdjacencyList {
-	vector<Vertex*> vertices;
-	vector<vector<Vertex*>> edges;
-
+	map<string, vector<string>> graph;
 
 public:
 	AdjacencyList();
 	~AdjacencyList();
-	void addVertex(Vertex* vertex);
-	void addEdge(Vertex* from, Vertex* to);
-	bool inGraph(Vertex* vertex);
+	void addVertex(string vertex);
+	void addEdge(string from, string to);
+	bool inGraph(string vertex);
 	void pageRank(int powers);
 	void print();
 };
