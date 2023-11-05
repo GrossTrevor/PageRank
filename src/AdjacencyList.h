@@ -1,6 +1,12 @@
 #pragma once
 #include <map>
 #include <iomanip>
+#include <iostream>
+#include <algorithm>
+
+using std::string;
+using std::vector;
+using std::map;
 
 class AdjacencyList {
 	map<string, vector<string>> adjTo;
@@ -9,7 +15,7 @@ class AdjacencyList {
 public:
 	AdjacencyList();
 	~AdjacencyList();
-	void addVertexFrom(string vertex);
+	void addVertexFrom(std::string vertex);
 	void addVertexTo(string vertex);
 	bool inGraphFrom(string vertex);
 	bool inGraphTo(string vertex);

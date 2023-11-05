@@ -13,12 +13,12 @@ AdjacencyList::AdjacencyList() {
 AdjacencyList::~AdjacencyList() {
 }
 
-void AdjacencyList::addVertexFrom(string name) {
-	adjFrom[name] = vector<string>();
+void AdjacencyList::addVertexFrom(string vertex) {
+	adjFrom[vertex] = vector<string>();
 }
 
-void AdjacencyList::addVertexTo(string name) {
-	adjTo[name] = vector<string>();
+void AdjacencyList::addVertexTo(string vertex) {
+	adjTo[vertex] = vector<string>();
 }
 
 bool AdjacencyList::inGraphFrom(string vertex) {
@@ -60,13 +60,13 @@ void AdjacencyList::pageRank(int powers) {
 	map<string, float> tempRank;
 
 	for (auto member: adjTo) {
-		rank[member] = 1.00f / adjTo.size();
+		rank[member.first] = 1.00f / adjTo.size();
 	}
 
 	for (int i = 0; i < powers; i++) {
 		for (auto member2: adjTo) {
 			float sum = 0.00f;
-			for (int j = 0; j < adjFrom[member2.first].size(), j++) {
+			for (int j = 0; j < adjFrom[member2.first].size(); j++) {
 				sum += (1.00f / (adjTo[adjFrom[member2.first][j]].size())) * rank[adjFrom[member2.first][j]];
 			}
 			tempRank[member2.first] = sum;
