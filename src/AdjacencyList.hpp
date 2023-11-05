@@ -61,9 +61,10 @@ void AdjacencyList::pageRank(int powers) {
 
 	for (auto member: adjTo) {
 		rank[member.first] = 1.00f / adjTo.size();
+		tempRank[member.first] = 0.00f;
 	}
 
-	for (int i = 0; i < powers; i++) {
+	for (int i = 0; i < powers - 1; i++) {
 		for (auto member2: adjTo) {
 			float sum = 0.00f;
 			for (int j = 0; j < adjFrom[member2.first].size(); j++) {
