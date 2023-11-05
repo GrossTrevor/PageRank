@@ -6,7 +6,7 @@
 //Testing incorrect inputs using the Insert() function
 TEST_CASE("Insert Incorrect Commands", "[incorect]"){
 
-	AVLTree tree;
+	AdjacencyList graph;
 	tree.Insert("A11y", "45679999");
 	tree.Insert("Fr3d", "10101010");
 	tree.Insert("Hi Mom!", "13370000");
