@@ -8,9 +8,13 @@ using std::map;
 using std::find;
 
 AdjacencyList::AdjacencyList() {
+	adjFrom = map<string, vector<string>>();
+	adjTo = map<string, vector<string>>();
 }
 
 AdjacencyList::~AdjacencyList() {
+	adjFrom.clear();
+	adjTo.clear();
 }
 
 void AdjacencyList::addVertexFrom(string name) {
