@@ -2,7 +2,9 @@
 #include <map>
 #include <iomanip>
 #include <iostream>
+#include <vector>
 #include <algorithm>
+#include <math.h>
 
 using std::string;
 using std::vector;
@@ -22,4 +24,5 @@ public:
 	void addFrom(string from, string to);
 	void addTo(string from, string to);
 	void pageRank(int powers);
+	vector<string> testOut(int powers);
 };

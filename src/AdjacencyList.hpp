@@ -80,3 +80,32 @@ void AdjacencyList::pageRank(int powers) {
 	for (auto member4: rank)
 		cout << member4.first << " " << std::fixed << std::setprecision(2) << member4.second << endl;
 }
+
+vector<string> AdjacencyList::testOut(int powers) {
+	map<string, float> rank;
+	map<string, float> tempRank;
+	vector<string> out;
+
+	for (auto member: adjTo) {
+		rank[member.first] = 1.00f / adjTo.size();
+		tempRank[member.first] = 0.00f;
+	}
+
+	for (int i = 0; i < powers - 1; i++) {
+		for (auto member2: adjTo) {
+			float sum = 0.00f;
+			for (int j = 0; j < adjFrom[member2.first].size(); j++) {
+				sum += (1.00f / (adjTo[adjFrom[member2.first][j]].size())) * rank[adjFrom[member2.first][j]];
+			}
+			tempRank[member2.first] = sum;
+		}
+		for (auto member3 : adjTo) {
+			rank[member3.first] = tempRank[member3.first];
+		}
+	}
+
+	for (auto member4: rank)
+		out.push_back(member4.first + " " + std::to_string(roundf(roundf(member4.second * 1000.f) / 10.f) / 100.f).substr(0, 4));
+
+	return out;
+}

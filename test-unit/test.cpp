@@ -4,96 +4,153 @@
 
 
 //Testing incorrect inputs using the Insert() function
-TEST_CASE("Insert Incorrect Commands", "[incorect]"){
+TEST_CASE("Base Case", "[base_case]"){
 
 	AdjacencyList graph;
-	tree.Insert("A11y", "45679999");
-	tree.Insert("Fr3d", "10101010");
-	tree.Insert("Hi Mom!", "13370000");
-	tree.Insert("Dog", "Woofwoof");
-	tree.Insert("Birds arent real", "1234567");
-	std::vector<string> actualOutput = tree.PrintInorder();
-	std::vector<string> expectedOutput = {};
+	graph.addTo("google.com", "gmail.com");
+	graph.addTo("google.com", "maps.com");
+	graph.addTo("facebook.com", "ufl.edu");
+	graph.addTo("ufl.edu", "google.com");
+	graph.addTo("ufl.edu", "gmail.com");
+	graph.addTo("maps.com", "facebook.com");
+	graph.addTo("gmail.com", "maps.com");
+	std::vector<string> actualOutput = graph.testOut(2);
+	std::vector<string> expectedOutput = { "facebook.com 0.20", "gmail.com 0.20", "google.com 0.10", "maps.com 0.30", "ufl.edu 0.20" };
 	REQUIRE(expectedOutput.size() == actualOutput.size());
 	REQUIRE(actualOutput == expectedOutput);
 }
 
 //Testing edge cases with Remove(), RemoveInorder(), and SearchID()
-TEST_CASE("Edge Cases", "[edge]") {
+TEST_CASE("Only One Vertex", "[one_vertex]") {
 
-	AVLTree tree;
-	tree.Remove("12345678");
-	tree.RemoveInorder(13);
-	tree.SearchID("00000000");
-	std::vector<string> actualOutput = tree.PrintInorder();
-	std::vector<string> expectedOutput = {};
+	AdjacencyList graph;
+	graph.addTo("google.com", "google.com");
+	std::vector<string> actualOutput = graph.testOut(1);
+	std::vector<string> expectedOutput = { "google.com 1.00" };
 	REQUIRE(expectedOutput.size() == actualOutput.size());
 	REQUIRE(actualOutput == expectedOutput);
 }
 
 //Testing the four types of rotations
-TEST_CASE("Rotation Cases", "[rotate]") {
+TEST_CASE("Points to Itself", "[self]") {
 
-	AVLTree tree;
-	tree.Insert("two", "22222222");
-	tree.Insert("three", "333333333");
-	tree.Insert("four", "44444444");
-	tree.Insert("one", "11111111");
-	tree.Insert("zero", "00000000");
-	tree.Insert("nine", "99999999");
-	tree.Insert("six", "66666666");
-	tree.Insert("seven", "77777777");
-	tree.Insert("eight", "88888888");
-	std::vector<string> actualOutput = tree.PrintPreorder();
-	std::vector<string> expectedOutput = { "three", "one", "zero", "two", "six", "four", "eight", "seven", "nine"};
+	AdjacencyList graph;
+	graph.addTo("google.com", "gmail.com");
+	graph.addTo("google.com", "maps.com");
+	graph.addTo("facebook.com", "ufl.edu");
+	graph.addTo("ufl.edu", "ufl.edu");
+	graph.addTo("ufl.edu", "gmail.com");
+	graph.addTo("maps.com", "facebook.com");
+	graph.addTo("gmail.com", "maps.com");
+	std::vector<string> actualOutput = graph.testOut(3);
+	std::vector<string> expectedOutput = { "facebook.com 0.30", "gmail.com 0.15", "google.com 0.00", "maps.com 0.20", "ufl.edu 0.35" };
 	REQUIRE(expectedOutput.size() == actualOutput.size());
 	REQUIRE(actualOutput == expectedOutput);
 }
 
 //Testing the three types of deletions
-TEST_CASE("Deletion Cases", "[delete]") {
+TEST_CASE("Dead End", "[dead_end]") {
 
-	AVLTree tree;
-	tree.Insert("five", "55555555");
-	tree.Remove("55555555");
-	tree.Insert("four", "44444444");
-	tree.Insert("three", "33333333");
-	tree.Insert("six", "66666666");
-	tree.Insert("eight", "88888888");
-	tree.Remove("66666666");
-	tree.Insert("seven", "77777777");
-	tree.Insert("nine", "99999999");
-	tree.Remove("88888888");
-	std::vector<string> actualOutput = tree.PrintPreorder();
-	std::vector<string> expectedOutput = { "four", "three", "seven", "nine" };
+	AdjacencyList graph;
+	graph.addTo("google.com", "gmail.com");
+	graph.addTo("google.com", "maps.com");
+	graph.addTo("facebook.com", "ufl.edu");
+	graph.addTo("ufl.edu", "google.com");
+	graph.addTo("ufl.edu", "gmail.com");
+	graph.addTo("maps.com", "facebook.com");
+	std::vector<string> actualOutput = graph.testOut(2);
+	std::vector<string> expectedOutput = { "facebook.com 0.20", "gmail.com 0.20", "google.com 0.10", "maps.com 0.10", "ufl.edu 0.20" };
 	REQUIRE(expectedOutput.size() == actualOutput.size());
 	REQUIRE(actualOutput == expectedOutput);
 }
 
 //Testing a large amount of inputs with Insert() and Remove()
-TEST_CASE("Insert/Delete Large", "[large]") {
+TEST_CASE("Many Websites", "[websites]") {
 
-	AVLTree tree;
-	std::vector<int> expectedOutput, actualOutput;
-
-	for (int i = 0; i < 100; i++) {
-		int randomInput = rand();
-		if (std::count(expectedOutput.begin(), expectedOutput.end(), randomInput) == 0) {
-			expectedOutput.push_back(randomInput);
-			tree.Insert(randomInput);
-		}
-	}
-
-	for (int j = 0; j < 10; j++) {
-		int randomInput = rand() % 100;
-		if (std::count(expectedOutput.begin(), expectedOutput.end(), randomInput) != 0) {
-			expectedOutput.erase(std::remove(expectedOutput.begin(), expectedOutput.end(), randomInput), expectedOutput.end());
-			tree.Remove(randomInput);
-		}
-	}
-
-	actualOutput = tree.printInorder();
+	AdjacencyList graph;
+	graph.addTo("google.com", "gmail.com");
+	graph.addTo("google.com", "maps.com");
+	graph.addTo("facebook.com", "ufl.edu");
+	graph.addTo("ufl.edu", "google.com");
+	graph.addTo("ufl.edu", "gmail.com");
+	graph.addTo("maps.com", "facebook.com");
+	graph.addTo("gmail.com", "maps.com");
+	graph.addTo("yahoo.com", "google.com");
+	graph.addTo("google.com", "youtube.com");
+	graph.addTo("youtube.com", "ufl.edu");
+	graph.addTo("facebook.com", "yahoo.com");
+	graph.addTo("coolmathgames.com", "poptropica.com");
+	graph.addTo("ixl.com", "coolmathgames.com");
+	graph.addTo("maps.com", "poptropica.com");
+	graph.addTo("google.com", "trevorjgross.com");
+	graph.addTo("trevorjgross.com", "poptropica.com");
+	graph.addTo("ufl.edu", "pons.de");
+	graph.addTo("pons.de", "trevorjgross.com");
+	graph.addTo("maclay.org", "ufl.edu");
+	graph.addTo("trevorjgross.com", "maclay.org");
+	graph.addTo("facebook.com", "maclay.org");
+	graph.addTo("maps.com", "pons.de");
+	graph.addTo("trevorjgross.com", "youtube.com");
+	graph.addTo("gmail.com", "trevorjgross.com");
+	graph.addTo("maclay.org", "gmail.com");
+	graph.addTo("maclay.org", "ixl.com");
+	graph.addTo("facebook.com", "youtube.com");
+	graph.addTo("poptropica.com", "youtube.com");
+	std::vector<string> actualOutput = graph.testOut(2);
+	std::vector<string> expectedOutput = { "coolmathgames.com 0.08", "facebook.com 0.03", "gmail.com 0.07", "google.com 0.10", "ixl.com 0.03", "maclay.org 0.05", "maps.com 0.06", "pons.de 0.05", "poptropica.com 0.13", "trevorjgross.com 0.14", "ufl.edu 0.12", "yahoo.com 0.02", "youtube.com 0.14" };
 	REQUIRE(expectedOutput.size() == actualOutput.size());
-	std::sort(expectedOutput.begin(), expectedOutput.end());
-	REQUIRE(expectedOutput == actualOutput);
+	REQUIRE(actualOutput == expectedOutput);
+}
+
+TEST_CASE("Many Powers", "[powers]") {
+
+	AdjacencyList graph;
+	graph.addTo("google.com", "gmail.com");
+	graph.addTo("google.com", "maps.com");
+	graph.addTo("facebook.com", "ufl.edu");
+	graph.addTo("ufl.edu", "google.com");
+	graph.addTo("ufl.edu", "gmail.com");
+	graph.addTo("maps.com", "facebook.com");
+	graph.addTo("gmail.com", "maps.com");
+	std::vector<string> actualOutput = graph.testOut(25);
+	std::vector<string> expectedOutput = { "facebook.com 0.25", "gmail.com 0.17", "google.com 0.11", "maps.com 0.22", "ufl.edu 0.25" };
+	REQUIRE(expectedOutput.size() == actualOutput.size());
+	REQUIRE(actualOutput == expectedOutput);
+}
+
+TEST_CASE("Many Websites and Many Powers", "[mega]") {
+
+	AdjacencyList graph;
+	graph.addTo("google.com", "gmail.com");
+	graph.addTo("google.com", "maps.com");
+	graph.addTo("facebook.com", "ufl.edu");
+	graph.addTo("ufl.edu", "google.com");
+	graph.addTo("ufl.edu", "gmail.com");
+	graph.addTo("maps.com", "facebook.com");
+	graph.addTo("gmail.com", "maps.com");
+	graph.addTo("yahoo.com", "google.com");
+	graph.addTo("google.com", "youtube.com");
+	graph.addTo("youtube.com", "ufl.edu");
+	graph.addTo("facebook.com", "yahoo.com");
+	graph.addTo("coolmathgames.com", "poptropica.com");
+	graph.addTo("ixl.com", "coolmathgames.com");
+	graph.addTo("maps.com", "poptropica.com");
+	graph.addTo("google.com", "trevorjgross.com");
+	graph.addTo("trevorjgross.com", "poptropica.com");
+	graph.addTo("ufl.edu", "pons.de");
+	graph.addTo("pons.de", "trevorjgross.com");
+	graph.addTo("maclay.org", "ufl.edu");
+	graph.addTo("trevorjgross.com", "maclay.org");
+	graph.addTo("facebook.com", "maclay.org");
+	graph.addTo("maps.com", "pons.de");
+	graph.addTo("trevorjgross.com", "youtube.com");
+	graph.addTo("gmail.com", "trevorjgross.com");
+	graph.addTo("maclay.org", "gmail.com");
+	graph.addTo("maclay.org", "ixl.com");
+	graph.addTo("facebook.com", "youtube.com");
+	graph.addTo("poptropica.com", "youtube.com");
+	std::vector<string> actualOutput = graph.testOut(10);
+	std::vector<string> expectedOutput = { "coolmathgames.com 0.02", "facebook.com 0.02", "gmail.com 0.10", "google.com 0.07", "ixl.com 0.02", "maclay.org 0.05", "maps.com 0.07", "pons.de 0.09", "poptropica.com 0.09", "trevorjgross.com 0.15", "ufl.edu 0.18", "yahoo.com 0.01", "youtube.com 0.15" };
+	REQUIRE(expectedOutput.size() == actualOutput.size());
+	REQUIRE(actualOutput == expectedOutput);
 }
