@@ -10,6 +10,7 @@ using std::string;
 using std::vector;
 using std::map;
 
+//Declaration of the AdjacencyList class
 class AdjacencyList {
 	map<string, vector<string>> adjTo;
 	map<string, vector<string>> adjFrom;
